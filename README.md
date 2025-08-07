@@ -1,0 +1,3 @@
+# Hello world MCP client
+
+This is my first MCP client ever...
