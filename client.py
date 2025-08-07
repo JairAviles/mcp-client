@@ -3,9 +3,14 @@ from mcp.client.stdio import stdio_client
 import asyncio
 import traceback
 
+# server_params = StdioServerParameters(
+#     command="uv",
+#     args=["run", "weather.py"],
+# )
+
 server_params = StdioServerParameters(
-    command="uv",
-    args=["run", "weather.py"],
+    command="npx",
+    args=["-y", "@openbnb/mcp-server-airbnb", "--ignore-robots-txt"],
 )
 
 async def run():
@@ -15,7 +20,7 @@ async def run():
             async with ClientSession(read, write) as session:
                 print("Client connected, creating session...")
 
-                print("Session created, calling get_weather...")
+                print("Session created, calling airbnb_search...")
                 await session.initialize()
 
                 print("Listing available tools...")
@@ -23,7 +28,7 @@ async def run():
                 print("Available tools:", tools)
 
                 print("Calling tool...")
-                result = await session.call_tool("get_weather", arguments={"location": "Portland"})
+                result = await session.call_tool("airbnb_search", arguments={"location": "Beaverton, OR"})
 
                 print("Tool call result:", result)
     except Exception as e:
